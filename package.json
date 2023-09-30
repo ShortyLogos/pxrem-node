@@ -1,0 +1,35 @@
+{
+  "name": "pxrem-node",
+  "version": "1.0.0",
+  "description": "Small CLI to convert px values to rem by reading a file and outputting a modified copy.",
+  "main": "pxrem.js",
+  "type": "module",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShortyLogos/pxrem-node.git"
+  },
+  "keywords": [
+    "cli",
+    "node",
+    "px",
+    "rem",
+    "conversion",
+    "web",
+    "dev"
+  ],
+  "author": "Déric Marchand",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ShortyLogos/pxrem-node/issues"
+  },
+  "homepage": "https://github.com/ShortyLogos/pxrem-node#readme",
+  "dependencies": {
+    "commander": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.7.2"
+  }
+}
