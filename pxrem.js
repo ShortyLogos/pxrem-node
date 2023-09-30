@@ -18,16 +18,34 @@ async function processLines(filePath, outputPath, rootFontSize = 16) {
   let conversions = 0;
 
   for await (const line of lines) {
-    // Double the counter and add it to the start of each line
-    const modifiedLine = `${lineNumber * 2} ${line}`;
+    const matches = line.match(/\d+px/g);
 
-    // Write the modified line to the output file
-    outputStream.write(`${modifiedLine}\n`);
+    if (matches) {
+      console.log(lineNumber, matches);
+      let modifiedLine;
+
+      for await (const match of matches) {
+        const pxValue = parseInt(match.substring(0, match.length - 2)); // Remove "px" part
+
+        // Calculate the value in rem (assuming rootFontSize is 16)
+        const remValue = pxValue / 16; // You can adjust the rootFontSize as needed
+
+        // Replace the "px" value with the calculated "rem" value in the line
+        modifiedLine = line.replace(match, `${remValue}rem`);
+
+        conversions++;
+      }
+      // Write the modified line to the output file
+      outputStream.write(`${modifiedLine}\n`);
+    } else {
+      // If no "px" values were found in the line, write it as is to the output
+      outputStream.write(`${line}\n`);
+    }
+
+    lineNumber++;
 
     // Log the modified line to the console
-    console.log(modifiedLine);
-    lineNumber++;
-    conversions++;
+    console.log(line);
   }
 
   // Close the output stream when done
