@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-import path from "path";
 import { Command } from "commander";
 import LinesProcessor from "./modules/LinesProcessor.js";
 import FileHandler from "./modules/FileHandler.js";
@@ -18,7 +17,7 @@ program
   )
   .option("-r, --root-font-size <int>", "Root font size in pixels.", "16")
   .option(
-    "--no-overwrite",
+    "-o, --no-overwrite",
     "Generate a modified file instead of overwriting.",
     false
   )
