@@ -2,20 +2,20 @@
 
 ## What's this?
 
-This is a small CLI made to convert all pixels values from web dev related files to rem ones. The default root font size used for calculation is 16, but another one can be specified. See below for valid parameters.
+This is a small CLI designed to convert pixel values in web development-related files to rem values. The default root font size used for calculations is 16, but you can specify another size using the parameters listed below.
 
 ## Alternatives
 
-Note that you can do directly in VSCode what this CLI does.
-More info [here](https://stackoverflow.com/a/72591161).
+Note that you can achieve the same functionality directly within VSCode.
+For more information, refer to [this link](https://stackoverflow.com/a/72591161).
 
 ## Why?
 
-This small project was made for fun over a couple of free hours. I am primarily a front-end dev working with React. It was a blast from the past to work in a self-imposed OOP paradigm. I could have built this small app in a procedural paradigm for sure. As many devs, I am guilty to over-engineer things sometimes.
+I created this small project for fun over a couple of hours. I primarily work as a front-end developer using React. Exploring this CLI was a nostalgic journey into the realm of object-oriented programming (OOP), although I could have built it using a procedural approach. Like many developers, I sometimes tend to over-engineer things.
 
 ## What's next?
 
-As I am writing this, I am in the process of learning Go just for fun. I could very well write the equivalent using Go. Also, it would probably be better UX-wise to write a version with a GUI.
+As I write this, I'm in the process of learning Go just for fun. It's entirely possible that I might create an equivalent version using Go. Additionally, for a better user experience (UX), I might consider developing a GUI version.
 
 ## Contributions
 
