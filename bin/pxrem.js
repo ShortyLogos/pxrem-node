@@ -17,12 +17,22 @@ program
     "-p, --paths [paths...]",
     "Paths of the file to be processed and its output file."
   )
+  .option(
+    "-c, --conversion [values...]",
+    "Data to handle conversions. [0] = source label, [1] = target label, [2] = ratio, [3] = operation.",
+    ["px", "rem", "16", "divide"]
+  )
   .option("-o, --overwrite", "Overwriting the original file instead of generating a new one.")
-  .option("-r, --root-font-size <int>", "Root font size in pixels.", "16")
+  .option("-r, --ratio <int>", "Ratio used for conversions.", "16")
+  .option("--rem-to-px", "Convert rem -> px values. Superseeds the -c option.")
   .option("-d, --debug", "Activate Debug Mode.")
   .parse();
 
 const options = program.opts();
+
+const conversionParams = options.remToPx
+  ? ["rem", "px", options.ratio, "multiply"]
+  : options.conversion;
 
 function validateOptions(options) {
   if (options.debug) {
@@ -37,23 +47,25 @@ function validateOptions(options) {
 }
 
 async function execute(options) {
-  const fileHandler = new FileHandler(options.debug);
+  const startTime = performance.now();
+
+  const [sourceLabel, targetLabel, unparsedRatio, operation] = conversionParams;
+
+  const fileHandler = new FileHandler(options.debug, targetLabel);
 
   const inputFilePath = options.paths[0];
   const outputFilePath = options.overwrite
     ? fileHandler.generateTempPath(inputFilePath)
     : options.paths[1] ?? fileHandler.generateAutoPath(inputFilePath);
 
-  const rootFontSize = parseInt(options.rootFontSize);
+  const ratio = parseInt(unparsedRatio);
 
-  const startTime = performance.now();
-
-  const linesProcessor = new LinesProcessor(
-    inputFilePath,
-    outputFilePath,
-    options.debug,
-    rootFontSize
-  );
+  const linesProcessor = new LinesProcessor(inputFilePath, outputFilePath, options.debug, [
+    sourceLabel,
+    targetLabel,
+    unparsedRatio,
+    operation,
+  ]);
 
   const { lineNumber, changesCount } = await linesProcessor.process();
 
@@ -67,11 +79,13 @@ async function execute(options) {
   logResults({
     inputFilePath,
     outputFilePath,
+    sourceLabel,
+    targetLabel,
     isOverwriting: options.overwrite,
     lineNumber,
     changesCount,
     elapsedTime,
-    rootFontSize,
+    ratio,
   });
 }
 
@@ -87,8 +101,8 @@ function logResults(data) {
 
   resultsLog.push(
     `${chalk.magenta.bold(data.changesCount)} changes from ${chalk.italic(
-      "px -> rem"
-    )} based on a font size of ${chalk.yellowBright.bold(data.rootFontSize)}.`
+      `${data.sourceLabel} -> ${data.targetLabel}`
+    )} based on a font size of ${chalk.yellowBright.bold(data.ratio)}.`
   );
 
   if (data.isOverwriting) {
