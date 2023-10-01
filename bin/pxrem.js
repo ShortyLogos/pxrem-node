@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { Command } from "commander";
+import chalk from "chalk";
 import LinesProcessor from "../lib/LinesProcessor.js";
 import FileHandler from "../lib/FileHandler.js";
 
@@ -56,23 +57,54 @@ async function process(options) {
     rootFontSize
   ).execute();
 
+  if (options.overwrite) {
+    await fileHandler.overwriteOriginalFile(inputFilePath, outputFilePath);
+  }
+
   const endTime = performance.now();
   const elapsedTime = endTime - startTime;
 
-  console.log(
-    `\nProcessed ${lineNumber} lines in ${elapsedTime.toFixed(
+  logResults({
+    inputFilePath,
+    outputFilePath,
+    isOverwriting: options.overwrite,
+    lineNumber,
+    changesCount,
+    elapsedTime,
+    rootFontSize,
+  });
+}
+
+function logResults({
+  inputFilePath,
+  outputFilePath,
+  isOverwriting,
+  lineNumber,
+  changesCount,
+  elapsedTime,
+  rootFontSize,
+}) {
+  const resultsLog = [];
+  resultsLog.push(
+    `Processed ${chalk.cyan.bold(`${lineNumber}`)} lines in ${elapsedTime.toFixed(
       2
-    )} milliseconds.\n${changesCount} changes from px -> rem based on a font size of ${
-      options.rootFontSize
-    }.`
+    )}ms.`
+  );
+  resultsLog.push(
+    `${chalk.magenta.bold(changesCount)} changes from ${chalk.italic(
+      "px -> rem"
+    )} based on a font size of ${chalk.yellowBright.bold(rootFontSize)}.`
   );
 
-  if (options.overwrite) {
-    await fileHandler.overwriteOriginalFile(inputFilePath, outputFilePath);
-    console.log(`Overwrited ${inputFilePath}.\n`);
+  if (isOverwriting) {
+    resultsLog.push(chalk.green.bold(`Overwrited ${inputFilePath}.`));
   } else {
-    console.log(`Saved to ${outputFilePath}.\n`);
+    resultsLog.push(chalk.green.bold(`Saved to ${outputFilePath}.`));
   }
+
+  resultsLog.unshift("");
+  resultsLog.push("");
+  resultsLog.forEach(result => console.log(`\t${result}`));
 }
 
 function main() {
