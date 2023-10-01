@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { Command } from "commander";
+import { promises as fsPromises } from "fs";
 import chalk from "chalk";
 import LinesProcessor from "../lib/LinesProcessor.js";
 import FileHandler from "../lib/FileHandler.js";
@@ -102,9 +103,17 @@ function logResults(data) {
   resultsLog.forEach(result => console.log(`\t${result}`));
 }
 
-function main() {
+async function main() {
   validateOptions(options);
-  execute(options);
+  try {
+    await fsPromises.access(options.paths[0], fsPromises.constants.R_OK);
+    execute(options);
+  } catch (error) {
+    console.error(
+      "Error accessing input path. Make sure it exists and you have read permissions.",
+      error
+    );
+  }
 }
 
 main();
