@@ -2,9 +2,9 @@
 
 ## What's this?
 
-This is a small CLI designed to convert pixel values in web development-related files to rem values or rem to px. It can theoratically be used to convert a lot of different values with a lot of different labels as the as `c` / `--conversion` argument is quite powerful. The requirement though is that the conversion should only necessitates a division or a multiplication. Custom conversion algorithms aren't possible as of v1.0. It is planned to offer it in the future.
+This is a small CLI designed to convert pixel values in web development-related files to rem values or vice-versa. **It can theoratically be used to convert a lot of different values with a lot of different labels as the `c` / `--conversion` argument is quite powerful**. However, there is a requirement that the conversion process should only involve division or multiplication. Custom conversion algorithms are not currently supported in v1.0, but they are planned for future releases.
 
-The default ratio used for calculations is 16, as it is the default root font size in browers. Of course, can specify another size using the CLI params.
+By default, the CLI uses a ratio of 16 for calculations, which corresponds to the default root font size in browsers. However, you can specify a different size using the CLI parameters.
 
 ## Why?
 
