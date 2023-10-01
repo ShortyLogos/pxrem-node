@@ -20,7 +20,7 @@ program
   .option(
     "-c, --conversion [values...]",
     "Data to handle conversions. [0] = source label, [1] = target label, [2] = ratio, [3] = operation, [4] = floating.",
-    ["px", "rem", "16", "divide", false]
+    ["px", "rem", 16, "divide", false]
   )
   .option("-o, --overwrite", "Overwriting the original file instead of generating a new one.")
   .option("-r, --ratio <int>", "Ratio used for conversions.", "16")

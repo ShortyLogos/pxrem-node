@@ -1,5 +1,5 @@
-This file is used for testing purposes only.
-It is invalid TSX and should not be used in production.
+// This file is used for testing purposes only.
+// It is garbage and should not be used in production.
 
 import React from "react";
 

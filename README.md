@@ -30,9 +30,11 @@ _NOTE : Relative and absolute paths are both accepted._
 You can always call `node pxrem --help` to have a list of possible commands.
 
 ```
--p / --paths: Specify up to two paths. The first path (mandatory) refers to the input file, while the second path (optional) is for the output of the modified copy. If no secondary path is specified, and overwrite mode is turned off (default), the CLI will generate a file in the same location as the input file. The generated file will have the "_rem" suffix before the extension name.
+-p / --paths: Specify up to two paths. The first path (mandatory) refers to the input file, while the second path (optional) is for the output of the modified copy. If no secondary path is specified, and overwrite mode is turned off (default), the CLI will generate a file in the same location as the input file. The generated file will have the target label ("_rem" by default) suffix before the extension name.
+-c / --conversion: Arrays of values used for conversion purposes. The order is important and goes like this : `[sourceLabel: string, targetLabel: string, ratio: int, operation: string, hasFloating: boolean]` The default value is used to convert px -> rem. Therefore it is ["px", "rem", 16, "divide", false]
+--rem-to-px: shortcut operation to convert rem -> px without specifiying a conversion array. It supersedes the --conversion argument.
 -o / --overwrite : Enables overwriting the input file instead of generating a modified copy.
--r / --root-font-size : Used for calculations purposes. Default is 16.
+-r / --ratio : Used for calculations purposes. Default is 16.
 -d / --debug : Display supplementary informations during execution.
 ```
 
