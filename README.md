@@ -1,5 +1,9 @@
 # PXREM CLI - NodeJS Version
 
+## What's this?
+
+This is a small CLI designed to convert pixel values in web development-related files to rem values. The default root font size used for calculations is 16, but you can specify another size using the parameters listed below.
+
 ## How to use?
 
 1. Make sure to have [Node.js installed on your machine](https://nodejs.org/).
@@ -15,10 +19,6 @@ npm install
 ```
 node pxrem ../your/path/your-file.jsx
 ```
-
-## What's this?
-
-This is a small CLI designed to convert pixel values in web development-related files to rem values. The default root font size used for calculations is 16, but you can specify another size using the parameters listed below.
 
 ## Why?
 
