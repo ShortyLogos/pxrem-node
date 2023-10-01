@@ -35,7 +35,7 @@ function validateOptions(options) {
   }
 }
 
-async function process(options) {
+async function execute(options) {
   const fileHandler = new FileHandler(options.debug);
 
   const inputFilePath = options.paths[0];
@@ -47,12 +47,14 @@ async function process(options) {
 
   const startTime = performance.now();
 
-  const { lineNumber, changesCount } = await new LinesProcessor(
+  const linesProcessor = new LinesProcessor(
     inputFilePath,
     outputFilePath,
     options.debug,
     rootFontSize
-  ).execute();
+  );
+
+  const { lineNumber, changesCount } = await linesProcessor.process();
 
   if (options.overwrite) {
     await fileHandler.overwriteOriginalFile(inputFilePath, outputFilePath);
@@ -72,40 +74,37 @@ async function process(options) {
   });
 }
 
-function logResults({
-  inputFilePath,
-  outputFilePath,
-  isOverwriting,
-  lineNumber,
-  changesCount,
-  elapsedTime,
-  rootFontSize,
-}) {
+function logResults(data) {
   const resultsLog = [];
+  const FLOATING_POINT_PRECISION = 2;
 
   resultsLog.push(
-    `Processed ${chalk.cyan.bold(`${lineNumber}`)} lines in ${elapsedTime.toFixed(2)}ms.`
+    `Processed ${chalk.cyan.bold(`${data.lineNumber}`)} lines in ${data.elapsedTime.toFixed(
+      FLOATING_POINT_PRECISION
+    )}ms.`
   );
+
   resultsLog.push(
-    `${chalk.magenta.bold(changesCount)} changes from ${chalk.italic(
+    `${chalk.magenta.bold(data.changesCount)} changes from ${chalk.italic(
       "px -> rem"
-    )} based on a font size of ${chalk.yellowBright.bold(rootFontSize)}.`
+    )} based on a font size of ${chalk.yellowBright.bold(data.rootFontSize)}.`
   );
 
-  if (isOverwriting) {
-    resultsLog.push(chalk.green.bold(`Overwrited ${inputFilePath}.`));
+  if (data.isOverwriting) {
+    resultsLog.push(chalk.green.bold(`Overwrited ${data.inputFilePath}.`));
   } else {
-    resultsLog.push(chalk.green.bold(`Saved to ${outputFilePath}.`));
+    resultsLog.push(chalk.green.bold(`Saved to ${data.outputFilePath}.`));
   }
 
   resultsLog.unshift("");
   resultsLog.push("");
+
   resultsLog.forEach(result => console.log(`\t${result}`));
 }
 
 function main() {
   validateOptions(options);
-  process(options);
+  execute(options);
 }
 
 main();
