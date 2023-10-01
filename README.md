@@ -4,6 +4,10 @@
 
 This is a small CLI designed to convert pixel values in web development-related files to rem values. The default root font size used for calculations is 16, but you can specify another size using the parameters listed below.
 
+## Why?
+
+Recently, I had to convert a bunch of files from using pixel values to rem ones for responsivness purposes. I created this small project for fun over a couple of hours. I primarily work as a front-end developer using React. Exploring this CLI was a nostalgic journey into the realm of object-oriented programming (OOP), although I could have built it using a procedural approach. Like many developers, I sometimes tend to over-engineer things.
+
 ## How to use?
 
 1. Make sure to have [Node.js installed on your machine](https://nodejs.org/).
@@ -21,10 +25,6 @@ node pxrem -p ../your/path/your-file.jsx
 
 _NOTE : Relative and absolute paths are both accepted._
 
-## Why?
-
-Recently, I had to convert a bunch of files from using pixel values to rem ones for responsivness purposes. I created this small project for fun over a couple of hours. I primarily work as a front-end developer using React. Exploring this CLI was a nostalgic journey into the realm of object-oriented programming (OOP), although I could have built it using a procedural approach. Like many developers, I sometimes tend to over-engineer things.
-
 ## All Commands
 
 You can always call `node pxrem --help` to have a list of possible commands.
@@ -36,7 +36,7 @@ You can always call `node pxrem --help` to have a list of possible commands.
 -d / --debug : Display supplementary informations during execution.
 ```
 
-3. When running this CLI, make sure your current directory is _pxrem-node/bin_. You have to add the input file using the **-p** argument.
+3. When running this CLI, make sure your current directory is _pxrem-node/bin_. You have to add the input file using the `-p` argument.
 
 ```
 node pxrem -p ../your/path/your-file.jsx

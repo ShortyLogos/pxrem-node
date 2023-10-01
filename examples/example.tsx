@@ -9,10 +9,7 @@ const ExampleComponent = () => {
       </p>
       <ul style={{ minWidth: "256px" }} className="list-disc ml-8">
         <li className="mb-2">
-          Width:{" "}
-          <span className="font-bold w-[500px] text-blue-900">
-            w-[500px] h-[123px]
-          </span>
+          Width: <span className="font-bold w-[500px] text-blue-900">w-[500px] h-[123px]</span>
         </li>
         <li className="mb-2">
           Padding: <span className="font-bold text-blue-900">%%% 32px $$$</span>
@@ -28,12 +25,10 @@ const ExampleComponent = () => {
           <span className="font-bold text-blue-900">8px</span>
         </li>
         <li className="mb-2">
-          Line height:{" "}
-          <span className="font-bold text-blue-900">leading-[32px]</span>
+          Line height: <span className="font-bold text-blue-900">leading-[32px]</span>
         </li>
         <li className="mb-2">
-          Box shadow:{" "}
-          <span className="font-bold border-b-[5px] text-blue-900">shadow-md</span>
+          Box shadow: <span className="font-bold border-b-[5px] text-blue-900">shadow-md</span>
         </li>
       </ul>
     </div>

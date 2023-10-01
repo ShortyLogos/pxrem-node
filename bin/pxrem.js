@@ -16,12 +16,9 @@ program
     "-p, --paths [paths...]",
     "Paths of the file to be processed and its output file."
   )
+  .option("-o, --overwrite", "Overwriting the original file instead of generating a new one.")
   .option("-r, --root-font-size <int>", "Root font size in pixels.", "16")
   .option("-d, --debug", "Activate Debug Mode.")
-  .option(
-    "-o, --overwrite",
-    "Overwriting the original file instead of generating a new one."
-  )
   .parse();
 
 const options = program.opts();
@@ -85,10 +82,9 @@ function logResults({
   rootFontSize,
 }) {
   const resultsLog = [];
+
   resultsLog.push(
-    `Processed ${chalk.cyan.bold(`${lineNumber}`)} lines in ${elapsedTime.toFixed(
-      2
-    )}ms.`
+    `Processed ${chalk.cyan.bold(`${lineNumber}`)} lines in ${elapsedTime.toFixed(2)}ms.`
   );
   resultsLog.push(
     `${chalk.magenta.bold(changesCount)} changes from ${chalk.italic(
