@@ -1,7 +1,7 @@
 {
   "name": "pxrem-node",
   "version": "1.0.0",
-  "description": "Small CLI to convert px values to rem by reading a file and outputting a modified copy.",
+  "description": "Convert pixels values to rem values by reading a file and writing a modified copy.",
   "main": "pxrem.js",
   "type": "module",
   "scripts": {
