@@ -19,8 +19,8 @@ program
   )
   .option(
     "-c, --conversion [values...]",
-    "Data to handle conversions. [0] = source label, [1] = target label, [2] = ratio, [3] = operation.",
-    ["px", "rem", "16", "divide"]
+    "Data to handle conversions. [0] = source label, [1] = target label, [2] = ratio, [3] = operation, [4] = floating.",
+    ["px", "rem", "16", "divide", false]
   )
   .option("-o, --overwrite", "Overwriting the original file instead of generating a new one.")
   .option("-r, --ratio <int>", "Ratio used for conversions.", "16")
@@ -31,7 +31,7 @@ program
 const options = program.opts();
 
 const conversionParams = options.remToPx
-  ? ["rem", "px", options.ratio, "multiply"]
+  ? ["rem", "px", options.ratio, "multiply", true]
   : options.conversion;
 
 function validateOptions(options) {
@@ -49,7 +49,7 @@ function validateOptions(options) {
 async function execute(options) {
   const startTime = performance.now();
 
-  const [sourceLabel, targetLabel, unparsedRatio, operation] = conversionParams;
+  const [sourceLabel, targetLabel, unparsedRatio, operation, hasFloating] = conversionParams;
 
   const fileHandler = new FileHandler(options.debug, targetLabel);
 
@@ -65,6 +65,7 @@ async function execute(options) {
     targetLabel,
     unparsedRatio,
     operation,
+    hasFloating,
   ]);
 
   const { lineNumber, changesCount } = await linesProcessor.process();
@@ -102,7 +103,7 @@ function logResults(data) {
   resultsLog.push(
     `${chalk.magenta.bold(data.changesCount)} changes from ${chalk.italic(
       `${data.sourceLabel} -> ${data.targetLabel}`
-    )} based on a font size of ${chalk.yellowBright.bold(data.ratio)}.`
+    )} based on a ratio of ${chalk.yellowBright.bold(data.ratio)}.`
   );
 
   if (data.isOverwriting) {
