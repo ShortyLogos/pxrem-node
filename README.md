@@ -2,7 +2,9 @@
 
 ## What's this?
 
-This is a small CLI designed to convert pixel values in web development-related files to rem values. The default root font size used for calculations is 16, but you can specify another size using the parameters listed below.
+This is a small CLI designed to convert pixel values in web development-related files to rem values or rem to px. It can theoratically be used to convert a lot of different values with a lot of different labels as the as `c` / `--conversion` argument is quite powerful. The requirement though is that the conversion should only necessitates a division or a multiplication. Custom conversion algorithms aren't possible as of v1.0. It is planned to offer it in the future.
+
+The default ratio used for calculations is 16, as it is the default root font size in browers. Of course, can specify another size using the CLI params.
 
 ## Why?
 
